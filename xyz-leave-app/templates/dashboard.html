@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% block content %}
+<h4>My Leave Requests</h4>
+<table class="table table-striped bg-white shadow-sm">
+<thead><tr><th>#</th><th>Type</th><th>From</th><th>To</th><th>Reason</th><th>Applied</th><th>Status</th><th>Decided by</th></tr></thead>
+<tbody>
+{% for l in leaves %}
+<tr><td>{{ l.id }}</td><td>{{ l.leave_type }}</td><td>{{ l.start_date }}</td><td>{{ l.end_date }}</td>
+<td>{{ l.reason }}</td><td>{{ l.applied_on }}</td>
+<td><span class="badge bg-{{ {'Pending':'warning','Approved':'success','Rejected':'danger'}[l.status] }}">{{ l.status }}</span></td>
+<td>{{ l.decided_by or '-' }}</td></tr>
+{% else %}<tr><td colspan="8" class="text-center text-muted">No requests yet.</td></tr>{% endfor %}
+</tbody></table>{% endblock %}

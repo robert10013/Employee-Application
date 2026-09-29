@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block content %}
+<div class="card shadow-sm col-md-6 mx-auto"><div class="card-body">
+  <h4 class="mb-3">Apply for Leave</h4>
+  <form method="post">
+    <label class="form-label">Leave type</label>
+    <select class="form-select mb-2" name="leave_type">
+      <option>Casual</option><option>Sick</option><option>Annual</option><option>Other</option>
+    </select>
+    <div class="row mb-2">
+      <div class="col"><label class="form-label">From</label><input type="date" class="form-control" name="start_date" min="{{ today }}" required></div>
+      <div class="col"><label class="form-label">To</label><input type="date" class="form-control" name="end_date" min="{{ today }}" required></div>
+    </div>
+    <label class="form-label">Reason</label>
+    <textarea class="form-control mb-3" name="reason" rows="3" required></textarea>
+    <button class="btn btn-primary">Submit</button>
+    <a class="btn btn-link" href="{{ url_for('dashboard') }}">Cancel</a>
+  </form>
+</div></div>{% endblock %}

@@ -1,0 +1,13 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - SECRET_KEY=change-this-secret
+      - DB_PATH=/data/leave.db
+    volumes:
+      - leave_data:/data
+    restart: unless-stopped
+volumes:
+  leave_data:

@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% block content %}
+<h4>All Leave Requests</h4>
+<table class="table table-striped bg-white shadow-sm">
+<thead><tr><th>#</th><th>Employee</th><th>Type</th><th>From</th><th>To</th><th>Reason</th><th>Status</th><th>Action</th></tr></thead>
+<tbody>
+{% for l in leaves %}
+<tr><td>{{ l.id }}</td><td>{{ l.full_name }}</td><td>{{ l.leave_type }}</td><td>{{ l.start_date }}</td><td>{{ l.end_date }}</td>
+<td>{{ l.reason }}</td>
+<td><span class="badge bg-{{ {'Pending':'warning','Approved':'success','Rejected':'danger'}[l.status] }}">{{ l.status }}</span></td>
+<td>{% if l.status == 'Pending' %}
+  <form method="post" action="{{ url_for('decide', leave_id=l.id, action='approve') }}" class="d-inline"><button class="btn btn-sm btn-success">Approve</button></form>
+  <form method="post" action="{{ url_for('decide', leave_id=l.id, action='reject') }}" class="d-inline"><button class="btn btn-sm btn-danger">Reject</button></form>
+{% else %}by {{ l.decided_by }}{% endif %}</td></tr>
+{% else %}<tr><td colspan="8" class="text-center text-muted">No requests yet.</td></tr>{% endfor %}
+</tbody></table>{% endblock %}
